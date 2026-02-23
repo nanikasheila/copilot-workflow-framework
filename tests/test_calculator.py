@@ -1,4 +1,4 @@
-"""Tests for the Calculator class.
+"""Tests for the Calculator class (pure arithmetic operations).
 
 Why: Verifying every arithmetic operation—including edge cases—prevents
      regressions and documents the expected contract of Calculator.
@@ -161,7 +161,7 @@ def test_divide_returns_float_quotient_when_result_is_not_whole_number(calculato
 # ---------------------------------------------------------------------------
 
 
-def test_divide_raises_value_error_when_divisor_is_zero(calculator: Calculator) -> None:
+def test_divide_raises_value_error_when_divisor_is_positive_zero(calculator: Calculator) -> None:
     # Arrange
     dividend, divisor = 5.0, 0.0
     # Act & Assert
@@ -169,9 +169,9 @@ def test_divide_raises_value_error_when_divisor_is_zero(calculator: Calculator) 
         calculator.divide(dividend, divisor)
 
 
-def test_divide_raises_value_error_with_negative_zero_divisor(calculator: Calculator) -> None:
+def test_divide_raises_value_error_when_divisor_is_negative_zero(calculator: Calculator) -> None:
     # Arrange
-    dividend, divisor = -8.0, 0.0
+    dividend, divisor = -8.0, -0.0
     # Act & Assert
     with pytest.raises(ValueError, match=r"Division by zero"):
         calculator.divide(dividend, divisor)
