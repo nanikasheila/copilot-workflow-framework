@@ -14,7 +14,13 @@
   },
   "project": {
     "name": "copilot-project-template",
-    "language": "markdown"
+    "language": "python",
+    "entryPoint": "src/",
+    "test": {
+      "command": "python -m pytest tests/ -v --tb=short",
+      "directory": "tests",
+      "pattern": "test_*.py"
+    }
   },
   "agents": {
     "model": "Claude Sonnet 4.6 (copilot)"
