@@ -1,0 +1,86 @@
+{
+  "$schema": "../../../../../.github/board.schema.json",
+  "schema_version": 1,
+  "feature_id": "feat-math-utils",
+  "maturity": "development",
+  "maturity_history": [],
+  "cycle": 1,
+  "flow_state": "submitting",
+  "gate_profile": "development",
+  "gates": {
+    "analysis":       { "status": "passed", "required": true, "evaluated_by": "orchestrator", "timestamp": "2026-02-26T00:01:00Z" },
+    "design":         { "status": "skipped", "required": false, "evaluated_by": "orchestrator", "timestamp": "2026-02-26T00:01:00Z" },
+    "plan":           { "status": "passed", "required": true, "evaluated_by": "orchestrator", "timestamp": "2026-02-26T00:02:00Z" },
+    "implementation": { "status": "passed", "required": true, "evaluated_by": "orchestrator", "timestamp": "2026-02-26T00:03:00Z" },
+    "test":           { "status": "passed", "required": true, "evaluated_by": "orchestrator", "results": { "pass_rate": 100, "coverage": 100 }, "timestamp": "2026-02-26T00:04:00Z" },
+    "review":         { "status": "passed", "required": true, "evaluated_by": "orchestrator", "results": { "verdict": "lgtm", "must_count": 0 }, "timestamp": "2026-02-26T00:05:00Z" },
+    "documentation":  { "status": "skipped", "required": false, "evaluated_by": "orchestrator", "timestamp": "2026-02-26T00:06:00Z" },
+    "submit":         { "status": "not_reached" }
+  },
+  "artifacts": {
+    "impact_analysis": {
+      "affected_files": ["src/math_utils.py", "tests/test_math_utils.py"],
+      "api_compatibility": "compatible",
+      "test_impact": "new_required",
+      "escalation": {
+        "required": false,
+        "reason": "新規モジュールの追加だが、外部依存なし・純粋関数のみ・既存コードへの波及ゼロ。エスカレーション基準のいずれにも該当しない。"
+      },
+      "risk_assessment": "low",
+      "summary": "影響を受ける既存ファイルなし。src/math_utils.py と tests/test_math_utils.py の2ファイル新規追加。標準ライブラリのみ使用の純粋関数コレクション。"
+    },
+    "architecture_decision": null,
+    "execution_plan": {
+      "tasks": [
+        { "id": "T1", "title": "math_utils モジュールの実装", "agent": "developer", "files": ["src/math_utils.py"] },
+        { "id": "T2", "title": "テストの実装と Gate 検証", "agent": "developer", "files": ["tests/test_math_utils.py"] },
+        { "id": "T3", "title": "コードレビュー", "agent": "reviewer", "files": ["src/math_utils.py", "tests/test_math_utils.py"] },
+        { "id": "T4", "title": "レビュー指摘修正", "agent": "developer", "files": ["src/math_utils.py", "tests/test_math_utils.py"] },
+        { "id": "T5", "title": "PR 作成・マージ", "agent": "developer", "files": ["src/math_utils.py", "tests/test_math_utils.py"] }
+      ],
+      "estimated_complexity": "low",
+      "notes": "T3→T4 は LGTM までループ。factorial/fibonacci の入力上限は review で判断。"
+    },
+    "implementation": {
+      "changed_files": ["src/math_utils.py", "src/__init__.py"],
+      "summary": "7つの純粋関数を実装。全関数に型アノテーションとWhy/Howドキュメントコメント付与。117行。",
+      "functions_implemented": ["add", "subtract", "multiply", "divide", "power", "factorial", "fibonacci"]
+    },
+    "test_results": {
+      "pass_count": 40,
+      "fail_count": 0,
+      "pass_rate": 100,
+      "coverage": 100,
+      "test_file": "tests/test_math_utils.py",
+      "summary": "40 passed / 0 failed / coverage 100%"
+    },
+    "review_findings": [
+      {
+        "cycle": 1,
+        "verdict": "lgtm",
+        "checks_performed": ["logic", "security_basic"],
+        "must_count": 0,
+        "should_count": 2,
+        "may_count": 2,
+        "summary": "ロジック正確。MUST指摘なし。factorial/fibonacci の入力上限チェックを SHOULD で推奨（stable 昇格前に対処）。"
+      }
+    ],
+    "documentation": {
+      "updated_files": ["README.md"],
+      "summary": "README.md に Python ユーティリティセクションを追加。関数一覧・コード例・テスト実行方法を記載。オーケストレーターが事実誤認を修正。"
+    }
+  },
+  "history": [
+    {
+      "timestamp": "2026-02-26T00:00:00Z",
+      "cycle": 1,
+      "action": "board_created",
+      "agent": "orchestrator",
+      "from_state": null,
+      "to_state": "initialized",
+      "detail": "Feature 開始。maturity: development, gate_profile: development"
+    }
+  ],
+  "created_at": "2026-02-26T00:00:00Z",
+  "updated_at": "2026-02-26T00:00:00Z"
+}
